@@ -44,6 +44,9 @@ while ($row = @mysql_fetch_assoc($result)){
   $newnode->setAttribute("intensity", $row['intensity']);
 }
 
-echo $dom->saveXML();
+$dom->formatOutput = true;
+$test1 = $dom->saveXML(); // put string in test1
+$dom->save('test1.xml');
+//echo $dom->saveXML();
 
 ?>
