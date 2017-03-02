@@ -45,8 +45,10 @@ while ($row = @mysql_fetch_assoc($result)){
 }
 
 $dom->formatOutput = true;
-$test1 = $dom->saveXML(); // put string in test1
-$dom->save('test1.xml');
+
+
+$dom->load('test1.xml');
+echo $dom->saveXML(); // put string in test1
 //echo $dom->saveXML();
 
 ?>
