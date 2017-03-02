@@ -24,7 +24,7 @@ if (!$db_selected) {
 }
 
 // Select all the rows in the markers table
-$query = "SELECT * FROM bump WHERE 1";
+$query = "SELECT * FROM markers WHERE 1";
 $result = mysql_query($query);
 if (!$result) {
   die('Invalid query: ' . mysql_error());
@@ -39,8 +39,8 @@ echo '<markers>';
 while ($row = @mysql_fetch_assoc($result)){
   // Add to XML document node
   echo '<marker ';
-  //echo 'name="' . parseToXML($row['name']) . '" ';
-  //echo 'address="' . parseToXML($row['address']) . '" ';
+  echo 'userid="' . $row['userid'] . '" ';
+  echo 'time="' . $row['time'] . '" ';
   echo 'latitude="' . $row['latitude'] . '" ';
   echo 'longitude="' . $row['longitude'] . '" ';
   echo 'type="' . $row['type'] . '" ';
