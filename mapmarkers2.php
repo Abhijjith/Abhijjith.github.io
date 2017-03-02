@@ -28,7 +28,7 @@ if (!$result) {
   die('Invalid query: ' . mysql_error());
 }
 
-header("Content-type: text/xml");
+header("Content-type: text/xml; charset=utf-8");
 
 // Iterate through the rows, adding XML nodes for each
 
