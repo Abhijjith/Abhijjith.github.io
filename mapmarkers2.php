@@ -1,29 +1,27 @@
 <?php
+
 require("dbinfo.php");
 
-function parseToXML($htmlStr)
-{
-$xmlStr=str_replace('<','&lt;',$htmlStr);
-$xmlStr=str_replace('>','&gt;',$xmlStr);
-$xmlStr=str_replace('"','&quot;',$xmlStr);
-$xmlStr=str_replace("'",'&#39;',$xmlStr);
-$xmlStr=str_replace("&",'&amp;',$xmlStr);
-return $xmlStr;
-}
+// Start XML file, create parent node
+
+$dom = new DOMDocument("1.0");
+$node = $dom->createElement("markers");
+$parnode = $dom->appendChild($node);
 
 // Opens a connection to a MySQL server
+
 $connection=mysql_connect ('localhost', $username, $password);
-if (!$connection) {
-  die('Not connected : ' . mysql_error());
-}
+if (!$connection) {  die('Not connected : ' . mysql_error());}
 
 // Set the active MySQL database
+
 $db_selected = mysql_select_db($database, $connection);
 if (!$db_selected) {
   die ('Can\'t use db : ' . mysql_error());
 }
 
 // Select all the rows in the markers table
+
 $query = "SELECT * FROM markers WHERE 1";
 $result = mysql_query($query);
 if (!$result) {
@@ -32,23 +30,20 @@ if (!$result) {
 
 header("Content-type: text/xml");
 
-// Start XML file, echo parent node
-echo '<markers>';
+// Iterate through the rows, adding XML nodes for each
 
-// Iterate through the rows, printing XML nodes for each
 while ($row = @mysql_fetch_assoc($result)){
   // Add to XML document node
-  echo '<marker ';
-  echo 'userid="' . $row['userid'] . '" ';
-  echo 'time="' . $row['time'] . '" ';
-  echo 'latitude="' . $row['latitude'] . '" ';
-  echo 'longitude="' . $row['longitude'] . '" ';
-  echo 'type="' . $row['type'] . '" ';
-  echo 'intensity="' . $row['intensity'] . '" ';
-  echo '/>';
+  $node = $dom->createElement("marker");
+  $newnode = $parnode->appendChild($node);
+  $newnode->setAttribute("userid",$row['userid']);
+  $newnode->setAttribute("time", $row['time']);
+  $newnode->setAttribute("latitude", $row['latitude']);
+  $newnode->setAttribute("longitude", $row['longitude']);
+  $newnode->setAttribute("type", $row['type']);
+  $newnode->setAttribute("intensity", $row['intensity']);
 }
 
-// End XML file
-echo '</markers>';
+echo $dom->saveXML();
 
 ?>
