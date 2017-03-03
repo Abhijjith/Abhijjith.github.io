@@ -4,7 +4,7 @@
    
     $dbusername = "root";  // enter database username, I used "arduino" in step 2.2
     $dbpassword = "root";  // enter database password, I used "arduinotest" in step 2.2
-    $server = "abhijjith.github.io"; // IMPORTANT: if you are using XAMPP enter "localhost", but if you have an online website enter its address, ie."www.yourwebsite.com"
+    $server = "https://www.abhijjith.github.io"; // IMPORTANT: if you are using XAMPP enter "localhost", but if you have an online website enter its address, ie."www.yourwebsite.com"
 
     // Connect to your database
 
